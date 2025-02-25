@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EV Charging Cost Calculator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Are "friends" (cars) Electric</h2>
+      <label for="time">Time (hours):</label>
+      <input type="number" id="time" list="time-options" min="1" />
+      <datalist id="time-options">
+        <option value="1"></option>
+        <option value="5"></option>
+        <option value="10"></option>
+      </datalist>
+
+      <label for="rate">Rate of Charge:</label>
+      <select id="rate">
+        <option value="2">Plug Socket</option>
+        <option value="7.5">Standard Charger</option>
+        <option value="22">Fast Charger</option>
+      </select>
+
+      <label for="price">Price (per kWh):</label>
+      <select id="price">
+        <option value="0.1">Low/ overnight (10p/kWh)</option>
+        <option value="0.26">Average (26p/kWh)</option>
+        <option value="0.75">
+          Spenny/ fast charge/ don't actually like them (75p/kWh)
+        </option>
+      </select>
+
+      <button onclick="calculateCost()">Calculate</button>
+      <h3 id="result"></h3>
+    </div>
+
+    <script>
+      function calculateCost() {
+        let time = parseFloat(document.getElementById("time").value) || 0;
+        let rate = parseFloat(document.getElementById("rate").value);
+        let price = parseFloat(document.getElementById("price").value);
+
+        if (time > 0 && price > 0) {
+          let cost = time * rate * price;
+          document.getElementById(
+            "result"
+          ).innerText = `Total Cost: £${cost.toFixed(2)}`;
+        } else {
+          document.getElementById("result").innerText =
+            "Please enter valid values for Time and Price";
+        }
+      }
+    </script>
+  </body>
+</html>
